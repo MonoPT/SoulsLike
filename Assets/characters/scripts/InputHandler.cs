@@ -11,6 +11,12 @@ namespace RF {
         public float mouseX;
         public float mouseY;
 
+
+        public bool b_input;
+        public bool rollFlag;
+        public bool isInteracting;
+
+
         PlayerControls inputActions;
         CameraHandler cameraHandler;
 
@@ -47,6 +53,7 @@ namespace RF {
 
         public void TickInput(float delta) {
             moveInput(delta);
+            HandleRollInput(delta);
         }
 
         private void moveInput(float delta) {
@@ -55,6 +62,15 @@ namespace RF {
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
             mouseX = cameraInput.x;
             mouseY = cameraInput.y;
+        }
+
+        private void HandleRollInput(float delta) {
+            b_input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
+
+
+            if(b_input) {
+                rollFlag = true;
+            }
         }
     }
 }
